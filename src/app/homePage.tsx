@@ -12,7 +12,7 @@ import rightIdle from "../assets/images/right_idle.png";
 import rightWalkRight from "../assets/images/right_walk_right.png";
 import rightWalkLeft from "../assets/images/right_walk_left.png";
 import downIdle from "../assets/images/down_idle.png";
-import downWalkRight from "../assets/images/down_walk_Right.png";
+import downWalkRight from "../assets/images/down_walk_right.png";
 import downWalkLeft from "../assets/images/down_walk_left.png";
 
 import debuggingRoom from "../assets/images/debuggingRoom.png";
