@@ -3,7 +3,11 @@ import React from 'react';
 import Computer from './computerTerminal';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import LoginPage from './login';
-import Debugging from './Debugging';
+import Debugging from './rooms/Debugging';
+import CryptographyRoom from './rooms/Cryptography';
+import AlgorithmsRoom from './rooms/Algorithms';
+import TriviaRoom from './rooms/TechTrivia';
+import HomePage from './homePage';
 
 
 const router = createBrowserRouter([
@@ -12,12 +16,24 @@ const router = createBrowserRouter([
     element: <LoginPage />
   },
   {
-    path: '/debugging/computer',
+    path: '/home',
+    element: <HomePage />
+  },
+  {
+    path: '/3/computer',
     element: <Computer />
   },
   {
-    path: '/debugging',
+    path: '/3',
     element: <Debugging />
+  },
+  {
+    path: '/2',
+    element: <CryptographyRoom />
+  },
+  {
+    path: '/1',
+    element: <TriviaRoom />
   }
 ]);
 

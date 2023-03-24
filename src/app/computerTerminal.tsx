@@ -39,7 +39,7 @@ const Computer = () => {
 
     return(
         <Page>
-            <a href="\debugging" style={{color: "white", alignSelf: 'baseline', marginLeft: 25}}>← Back to room</a>
+            <a href="\3" style={{color: "white", alignSelf: 'baseline', marginLeft: 25}}>← Back to room</a>
             <div>
             {terminalMode && <p className="question">
                 <span style={{backgroundColor: '#159955', padding: '0px 5px', marginRight: '5px', borderRadius: '5px'}}>Problem</span>{questionsText[levelStage].problem}</p>}
