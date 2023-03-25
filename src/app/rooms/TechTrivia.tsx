@@ -29,7 +29,7 @@ export default function TriviaRoom() {
     }
     const navigate = useNavigate()
 
-    getStageNumber();
+
 
     function submit() {
         axios.post(`https://decipher-backend.vercel.app/play/1/solve`, {

@@ -32,19 +32,9 @@ const Computer = () => {
     function submit() {
         console.log(textAreaValue);
         if (terminalMode) {
-            axios.post(`https://decipher-backend.vercel.app/play/3/solve`, {
-                challengeNumber: levelStage+1,
-                auth: userID,
-                answer: textAreaValue.replace('\t', ' ').replace('\n', ' ')
-            }).then((res) => {
-                if (res.data) {
-                    setStage(levelStage => levelStage+1);
-                    setTerminalMode(terminalMode => false);
-                    setTextAreaValue('');
-                }
-            }).catch((err) => {
-                console.log(err);
-            });
+            setStage(levelStage => levelStage+1);
+            setTerminalMode(terminalMode => false);
+            setTextAreaValue('');
         }
     }
 
