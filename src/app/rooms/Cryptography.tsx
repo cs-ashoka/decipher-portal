@@ -25,7 +25,7 @@ export default function CryptographyRoom() {
     const {userID} = useAuth()
     const navigate = useNavigate()
 
-    const latexstring = "\\[ (\\sum_{i=1}^{\\infty} i)^{-1} - 4\\]"
+    const latexstring = "\\[ (\\sum_{i=1}^{\\infty} i)^{-1} + 4\\]"
 
     const solve = (i:number, answer:string) => {
         axios.post(`https://decipher-backend.vercel.app/play/2/solve/`, {
