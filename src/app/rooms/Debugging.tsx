@@ -9,7 +9,7 @@ export default function Debugging() {
 
     return (
         <Page>
-            <a href="/" style={{color: "white", alignSelf: 'baseline', marginLeft: 25}}>← Back</a>
+            <a href="/home" style={{color: "white", alignSelf: 'baseline', marginLeft: 25}}>← Back</a>
             <object data={roomImage} type="image/svg+xml" height={600}>
             </object>
             <a onClick={() => console.log('hello')} href="/3/computer" style={{position: "absolute", marginRight: 190, marginBottom: 80, textDecoration: 'none'}}>

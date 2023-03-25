@@ -32,7 +32,7 @@ export default function CryptographyRoom() {
             auth: userID,
             challengeNumber: i,
             answer: answer
-        }).then((res) => {if (res) {
+        }).then((res) => {if (res.data) {
             setProgress(progress => ({...progress, [i]: true}))
             setModal(0)
             if (i == 4) {
@@ -100,7 +100,7 @@ export default function CryptographyRoom() {
                 <div style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setDetails(false)}>Close</div>
                 <img src={dots} alt="" />
                 </div>}
-            <a href="/" style={{color: "white", alignSelf: 'baseline', marginLeft: 25}}>← Back</a>
+            <a href="/home" style={{color: "white", alignSelf: 'baseline', marginLeft: 25}}>← Back</a>
             <div style={{display: "flex"}}>
                 <p onClick={() => {if(progress[1] && progress[2] && progress[3]) {setSafeOpen(true)}}} style={{height: 10, fontWeight: 700, transform: 'rotate(-30deg)', position: "relative", top: 250, left: 300, cursor: 'pointer', fontSize: '0.5rem', zIndex: 10}}>Open the safe</p>
                 <p onClick={() => {setDetails(true)}} style={{height: 10, transform: 'rotate(-30deg)', position: "relative", top:235, left: 300, cursor: 'pointer', fontSize: '0.5rem', zIndex: 10}}>← View</p>
