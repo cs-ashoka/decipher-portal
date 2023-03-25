@@ -76,7 +76,7 @@ const Computer = () => {
                         }}>
                     </textarea>}
             </div>
-            <p style={{textAlign: 'center', margin: '0 10px', fontSize: '0.9rem'}}>Make the required changes to your code in the editor above itself, and click on the button below when you're done. You get unlimited tries, but a lesser amount of tries will put you higher on the leaderboard.</p>
+            <p style={{textAlign: 'center', margin: '0 10px', fontSize: '0.9rem'}}>Make the required changes to your code in the editor above itself, and click on the button below when you're done. You get unlimited tries, but a lesser amount of tries will put you higher on the leaderboard. Make sure you click off the button before pressing enter.</p>
             <button 
                 onClick={() => {submit()}}
                 style={{
