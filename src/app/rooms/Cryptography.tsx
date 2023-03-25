@@ -3,12 +3,10 @@ import Page from "../Page";
 import roomImage from '../../assets/images/cryptographyroom.svg'
 import safe from '../../assets/images/Safe.svg'
 import knob from '../../assets/images/Knob.svg'
-import { KeyObject } from "crypto";
-import dots from '../../assets/images/frame3.png'
+import dots from '../../assets/images/Frame3.png'
 const Latex = require('react-latex');
 import axios from 'axios';
 import { useAuth } from "../app";
-import { channel } from "diagnostics_channel";
 import { useNavigate } from "react-router-dom";
 
 export default function CryptographyRoom() {
