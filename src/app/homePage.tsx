@@ -79,10 +79,6 @@ const HomePage = () => {
     return ((x > (width/2 + 10)) && (y > (height/2)));
   }
 
-  function collidingWithDSA(x:any, y:any) {
-    return ((x) > (width/2 + 10)) && (((y) < (width/2 - 80)));
-  }
-
   //checking if entering room door
   function enteringDoorway(x:any, y:any) {
     if (collidingWithDebug(x,y)) {
@@ -97,10 +93,6 @@ const HomePage = () => {
       if ( (y > height/2 + height * 0.1720) && (y < height /2 + height * 0.301)) {
         return navigateTo("1");
       } 
-    } else if (collidingWithDSA(x, y)) {
-      if ((y > (height/2 - 80 - height * 0.2580) ) && ( y< (height/2 - 80 - height * 0.1290))) {
-        return navigateTo("DSA Room");
-      }
     }
   }
 
@@ -116,12 +108,12 @@ const HomePage = () => {
         }
       }
       if  (e.key === 'ArrowRight') {
-        if ((xPosRef.current < width- 50) && !(collidingWithGeneral(xPosRef.current, yPosRef.current)) && !(collidingWithDSA(xPosRef.current, yPosRef.current))) {
+        if ((xPosRef.current < width- 50) && !(collidingWithGeneral(xPosRef.current, yPosRef.current))) {
             setRectPosition((prev) => ({ x: prev.x + stepSize, y: prev.y }));
         }
       }
       if  (e.key === 'ArrowUp') {
-        if ((yPosRef.current > 0) && !(collidingWithCrypto(xPosRef.current, yPosRef.current)) && !(collidingWithDSA(xPosRef.current, yPosRef.current))) {
+        if ((yPosRef.current > 0) && !(collidingWithCrypto(xPosRef.current, yPosRef.current))) {
             setRectPosition((prev) => ({ x: prev.x, y: prev.y - stepSize }));
         }
       }
@@ -218,22 +210,6 @@ const HomePage = () => {
           height : (width/2 - 50) + "px",
           position: 'absolute',
           left: 0 + "px",
-          top: 0 + "px"
-        }
-      }
-      >
-      </div>
-
-      <div
-      style={
-        {
-          backgroundImage: `url(${DSARoom})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: (width/2 - 50) + "px",
-          width: (width/2 - 50) + "px",
-          height : (width/2 - 50) + "px",
-          position: 'absolute',
-          left: (width/2 + 50) + "px",
           top: 0 + "px"
         }
       }

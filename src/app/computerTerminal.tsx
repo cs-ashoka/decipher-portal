@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import computerScreen from "../assets/images/computer.png"
 import { questionsCodes, questionsText, solutions } from "src/assets/text/code";
 import Page from "./Page";
+import axios from "axios";
+import { useAuth } from "./app";
 
 const Computer = () => {
-    const [computerOn, setComputerOn] = useState(false);
     const [levelStage, setStage] = useState(0);
     const [terminalMode, setTerminalMode] = useState(false);
     const [textAreaValue, setTextAreaValue] = useState('');
@@ -12,19 +13,38 @@ const Computer = () => {
 
     const text = [
         'Starting up computer...\nBIOS version 1.0.0\nCritical error at 0x10020.\nPress <Enter> to continue.',
+        'Logging in user...\nDefault user logged in.\nError: STDTYPERR\nPress <Enter> to continue.',
+        'Loading in file system.\nDecrypting files...\nError: INT_BUFFER_OVERFLOW\nPress <Enter> to continue.',
+        'Opening terminal...\nError: TERMINAL_NOT_FOUND\nPress <Enter> to continue.',
+
     ]
 
+    const {userID} = useAuth()
+
     const eventHandler = (e: any) => {
-        if (e.key === 'Enter') {
-            setTerminalMode(true);
+        if (e.key === 'Enter' && !terminalMode) {
+            setTerminalMode(terminalMode => true);
             setTextAreaValue(questionsCodes[levelStage]);
+            console.log(levelStage);
         }
     }
-
+    
     function submit() {
-        if (textAreaValue === solutions[levelStage]) {
-            setStage(levelStage + 1);
-            setTerminalMode(false);
+        console.log(textAreaValue);
+        if (terminalMode) {
+            axios.post(`https://decipher-backend.vercel.app/play/3/solve`, {
+                challengeNumber: levelStage+1,
+                auth: userID,
+                answer: textAreaValue.replace('\t', ' ').replace('\n', ' ')
+            }).then((res) => {
+                if (res.data) {
+                    setStage(levelStage => levelStage+1);
+                    setTerminalMode(terminalMode => false);
+                    setTextAreaValue('');
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     }
 
@@ -35,7 +55,7 @@ const Computer = () => {
                 window.removeEventListener('keydown', eventHandler);
             }
         }
-    }, []);
+    }, [levelStage, terminalMode]);
 
     return(
         <Page>
@@ -68,7 +88,7 @@ const Computer = () => {
             </div>
             <p style={{textAlign: 'center', margin: '0 10px', fontSize: '0.9rem'}}>Make the required changes to your code in the editor above itself, and click on the button below when you're done. You get unlimited tries, but a lesser amount of tries will put you higher on the leaderboard.</p>
             <button 
-                onClick={() => submit()}
+                onClick={() => {submit()}}
                 style={{
                 padding: '5px 20px', backgroundColor: '#159955', border: 'none', borderRadius: '5px', fontWeight: 500, 
                 fontFamily: 'IBM Plex Sans JP', color: '#FFF', fontSize: '1rem'}}>
