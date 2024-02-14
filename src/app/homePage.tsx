@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef} from 'react';
 
 import floorTiles from  "../assets/images/floorTile.png";
+import restro from "../assets/images/restaurant.png";
 
 import upIdle from "../assets/images/up_idle.png";
 import upWalkRight from "../assets/images/up_walk_right.png";
@@ -79,6 +80,12 @@ const HomePage = () => {
     return ((x > (width/2 + 10)) && (y > (height/2)));
   }
 
+  function collidingWithTable(x:any, y:any) {
+
+    //return (  ((x > width/2) && (x < width/2 +200 ))  && ( (y < height/2) && (y > height/2-200)  )  )
+    return(false);
+  }
+
   //checking if entering room door
   function enteringDoorway(x:any, y:any) {
     if (collidingWithDebug(x,y)) {
@@ -103,22 +110,22 @@ const HomePage = () => {
     enteringDoorway(xPosRef.current, yPosRef.current);
     
       if (e.key === 'ArrowLeft') {
-        if ((xPosRef.current > 0) && !(collidingWithCrypto(xPosRef.current, yPosRef.current)) && !(collidingWithDebug(xPosRef.current, yPosRef.current))) {
+        if ((xPosRef.current > 0) && !(collidingWithCrypto(xPosRef.current, yPosRef.current)) && !(collidingWithDebug(xPosRef.current, yPosRef.current)) && !(collidingWithTable(xPosRef.current, yPosRef.current))) {
             setRectPosition((prev) => ({ x: prev.x - stepSize, y: prev.y }));
         }
       }
       if  (e.key === 'ArrowRight') {
-        if ((xPosRef.current < width- 50) && !(collidingWithGeneral(xPosRef.current, yPosRef.current))) {
+        if ((xPosRef.current < width- 50) && !(collidingWithGeneral(xPosRef.current, yPosRef.current)) && !(collidingWithTable(xPosRef.current, yPosRef.current))) {
             setRectPosition((prev) => ({ x: prev.x + stepSize, y: prev.y }));
         }
       }
       if  (e.key === 'ArrowUp') {
-        if ((yPosRef.current > 0) && !(collidingWithCrypto(xPosRef.current, yPosRef.current))) {
+        if ((yPosRef.current > 0) && !(collidingWithCrypto(xPosRef.current, yPosRef.current)) && !(collidingWithTable(xPosRef.current, yPosRef.current))) {
             setRectPosition((prev) => ({ x: prev.x, y: prev.y - stepSize }));
         }
       }
       if  (e.key === 'ArrowDown') {
-        if ((yPosRef.current < height - 50) && !(collidingWithDebug(xPosRef.current, yPosRef.current)) && !(collidingWithGeneral(xPosRef.current, yPosRef.current))) {
+        if ((yPosRef.current < height - 50) && !(collidingWithDebug(xPosRef.current, yPosRef.current)) && !(collidingWithGeneral(xPosRef.current, yPosRef.current)) && !(collidingWithTable(xPosRef.current, yPosRef.current))) {
             setRectPosition((prev) => ({ x: prev.x, y: prev.y + stepSize }));
         }
       }
@@ -176,8 +183,9 @@ const HomePage = () => {
     <Page>
     <div
       style={{
-        backgroundImage: `url(${floorTiles})`,
-    backgroundRepeat: 'repeat',
+        backgroundImage: `url(${restro})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: "cover",
         width: width +"px",
         height: height + "px",
         position: 'relative',
