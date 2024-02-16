@@ -4,7 +4,6 @@ import roomImage from '../../assets/images/cryptographyroom.svg'
 import safe from '../../assets/images/Safe.svg'
 import knob from '../../assets/images/Knob.svg'
 import dots from '../../assets/images/Frame3.png'
-const Latex = require('react-latex');
 import axios from 'axios';
 import { useAuth } from "../app";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +52,6 @@ export default function CryptographyRoom() {
                 <div style={{textDecoration: 'underline', cursor: 'pointer', marginBottom: 30}} onClick={() => setSafeOpen(false)}>Close</div>
                 <div style={{backgroundColor: '#999', display: "flex", border: '#BBB 10px solid', width: '30vw', height: '50vh', justifyContent: "center", alignItems: "center" }}>
                     <div style={{backgroundColor: "white", height: "30vh", width: "15vw", color: "black", padding: 10, textAlign: 'center'}}>
-                        <Latex>{latexstring}</Latex>
                         <p style={{fontFamily: 'monospace'}}>jiv rii jivriizi</p>
                     </div>
                 </div>
