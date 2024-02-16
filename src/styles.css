@@ -49,3 +49,84 @@ svg {
     background-color: #1b1b44;
 }
 
+/**/
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+h1 {
+    color: black;
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.event-info {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.text-box {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.login-button {
+    background-color: #FF6612;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    width: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #FF8C42;
+}
+
+.footer {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.society-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.society-logo {
+    width: 80px;
+    margin: 0 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.society-logo:hover {
+    transform: scale(1.1);
+}
+.collaboration-symbol {
+    font-size: 1rem;
+    margin: 0 7px;
+    color: black;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}

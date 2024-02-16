@@ -23,16 +23,24 @@ const LoginPage = ({...props}) => {
 
     return (
         <div className="page">
-            <div style={{display: "flex", flexDirection: "column", justifyContent: 'space-evenly', alignItems: "center"}}>
-
-            <h1>Decipher</h1>
-            <p>A Banjaara 2023 Event</p>
-            <input className="text-box" value={username} onChange={(e) => setUsername(e.target.value)} type="text" name="username" placeholder="Team Username" />
-            <br />
-            <input className="text-box" value={password} onChange={(e) => setPassword(e.target.value)} type="password" name="password" placeholder="Password"/>
-            <br />
-            <button onClick={() => loginHandler()} style={{backgroundColor: '#FF6612', border: 'none', padding: '5px', borderRadius: '5px', width: '100%', marginTop: '20px'}}>Log In</button>
-            <p style={{textAlign: "center"}}>Powered by the CS Society</p>
+            <div className="login-page">
+                <div className="login-container">
+                    <h1 style={{fontWeight: 'bold'}}>Just In Case</h1>
+                    <p className="event-info">An Equilibrium 2024 Event</p>
+                    <input className="text-box" value={username} onChange={(e) => setUsername(e.target.value)} type="text" name="username" placeholder="Team Username"/>
+                    <input className="text-box" value={password} onChange={(e) => setPassword(e.target.value)} type="password" name="password" placeholder="Password"/>
+                    <button className="login-button" onClick={loginHandler}> Log In </button>
+                    <p className="footer">Developed by the CS Society</p>
+                    <div className="society-logos">
+                        <img className="society-logo" src="../assets/images/equilibrium.png" alt="Equilibrium Logo" />
+                        <span className="collaboration-symbol">X</span>
+                        <img className="society-logo" src="../assets/images/cssociety_logo.png" alt="CS Soc Logo" />
+                        <span className="collaboration-symbol">X</span>
+                        <img className="society-logo" src="../assets/images/econsoc.png" alt="Econ Soc Logo" />
+                        <span className="collaboration-symbol">X</span>
+                        <img className="society-logo" src="../assets/images/acc_logo_main.png" alt="ACC Logo" />
+                    </div>
+                </div>
             </div>
         </div>
     );
