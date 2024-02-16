@@ -11,7 +11,7 @@ h1 {
 }
 
 .question {
-    text-align: justify;
+    /* text-align: justify  ; */
     /* font-family: 'CMU Serif'; */
     font-size: 11pt;
     margin: 0px 50px;
