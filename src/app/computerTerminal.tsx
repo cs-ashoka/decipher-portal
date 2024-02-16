@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import computerScreen from '../assets/images/computer.png';
 import { questionsText } from 'src/assets/text/code';
 import Page from './Page';
@@ -8,26 +8,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Computer = () => {
   const [levelStage, setStage] = useState(0);
-  //   const [terminalMode, setTerminalMode] = useState(false);
   const [textAreaValue, setTextAreaValue] = useState('');
-  //   const [thing, setThing] = useState('');
   const [error, setError] = useState('');
 
-  const text = [
-    'Starting up computer...\nBIOS version 1.0.0\nCritical error at 0x10020.\nPress <Enter> to continue.',
-    'Logging in user...\nDefault user logged in.\nError: STDTYPERR\nPress <Enter> to continue.',
-    'Loading in file system.\nDecrypting files...\nError: INT_BUFFER_OVERFLOW\nPress <Enter> to continue.',
-    'Opening terminal...\nError: TERMINAL_NOT_FOUND\nPress <Enter> to continue.',
-  ];
   const navigate = useNavigate();
 
   const { userID } = useAuth();
-
-  //   function submit() {
-  //     console.log(textAreaValue);
-  //     setStage((levelStage) => levelStage + 1);
-  //     setTextAreaValue('');
-  //   }
 
   function submit() {
     setError('');
@@ -43,9 +29,6 @@ const Computer = () => {
           setStage((stage) => stage + 1);
           setTextAreaValue('');
         }
-        // if (stage == 4) {
-        //   navigate('/home');
-        // }
       })
       .catch((err: any) => {
         console.log(JSON.stringify(err));
