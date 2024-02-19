@@ -1,32 +1,74 @@
 import { useEffect, useState } from 'react';
 import computerScreen from '../assets/images/computer.png';
-import { questionsText } from 'src/assets/text/code';
 import Page from './Page';
 import { useAuth } from './app';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+type Question = {
+  question: string;
+  hint: string;
+  roomNumber: number;
+  challengeNumber: number;
+};
+
 const Computer = () => {
-  const [levelStage, setStage] = useState(0);
   const [textAreaValue, setTextAreaValue] = useState('');
   const [error, setError] = useState('');
+
+  const [questionsText, setQuestionsText] = useState<{
+    loading: boolean;
+    error: boolean;
+    data?: Question;
+  }>({ loading: true, error: false, data: undefined });
+
+  const fetchNext = () => {
+    axios
+      .post('http://localhost:5000/play/3', {}, { withCredentials: true })
+      .then((res) => {
+        setQuestionsText({ loading: false, error: false, data: res.data });
+      })
+      .catch((err) => {
+        // if (levelStage === questionsText.data.length) {
+        //   navigate('/home');
+        // }
+        console.log(err);
+        setQuestionsText({ loading: false, error: true, data: undefined });
+      });
+  };
+
+  useEffect(() => {
+    fetchNext();
+  }, []);
 
   const navigate = useNavigate();
 
   const { userID } = useAuth();
 
+  useEffect(() => {
+    if (!questionsText.data) {
+      return;
+    }
+  }, [questionsText]);
+
   function submit() {
     setError('');
 
     axios
-      .post(`https://decipher-backend.vercel.app/play/3/solve`, {
-        challengeNumber: levelStage,
-        auth: userID,
-        answer: textAreaValue,
-      })
+      .post(
+        `http://localhost:5000/play/3/solve`,
+        {
+          challengeNumber: questionsText.data?.challengeNumber,
+          auth: userID,
+          answer: textAreaValue,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         if (res.data) {
-          setStage((stage) => stage + 1);
+          fetchNext();
+
+          // setStage((stage) => stage + 1);
           setTextAreaValue('');
         }
       })
@@ -37,11 +79,17 @@ const Computer = () => {
       });
   }
 
-  useEffect(() => {
-    if (levelStage === questionsText.length) {
-      navigate('/home');
-    }
-  }, [levelStage]);
+  if (questionsText.loading) {
+    return <Page>Loading...</Page>;
+  }
+
+  if (questionsText.error) {
+    return <Page>Error loading questions</Page>;
+  }
+
+  if (!questionsText.data) {
+    return <Page>Error loading questions</Page>;
+  }
 
   return (
     <Page>
@@ -64,7 +112,7 @@ const Computer = () => {
             Problem
           </span>
           <br />
-          {questionsText[levelStage].problem.split('\n').map((text) => (
+          {questionsText.data.question.split('\n').map((text) => (
             <p key={text} style={{ margin: '0px', marginTop: '10px' }}>
               {text}
             </p>
@@ -73,7 +121,7 @@ const Computer = () => {
 
         <br />
 
-        {questionsText[levelStage].hint && (
+        {questionsText.data.hint && (
           <p className="question">
             <span
               style={{
@@ -85,7 +133,7 @@ const Computer = () => {
             >
               Hint
             </span>
-            {questionsText[levelStage].hint}
+            {questionsText.data.hint}
           </p>
         )}
       </div>
@@ -150,7 +198,7 @@ const Computer = () => {
       </div>
       {
         //@ts-ignore
-        error && <p style={{ margin: 0, color: 'red' }}>{error?.message}</p>
+        error && <p style={{ margin: 0, color: 'red' }}>Wrong answer!</p>
       }
       <p style={{ textAlign: 'center', margin: '0 10px', fontSize: '0.9rem' }}>
         Type in your answer. You get unlimited tries, but a lesser amount of
