@@ -28,7 +28,7 @@ export default function CryptographyRoom() {
 
   const solve = (i: number, answer: string) => {
     axios
-      .post(`http://localhost:5000/play/2/solve/`, {
+      .post(`http://decipher-backend.vercel.app/play/2/solve/`, {
         auth: userID,
         challengeNumber: i,
         answer: answer,

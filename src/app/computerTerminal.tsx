@@ -24,7 +24,7 @@ const Computer = () => {
 
   const fetchNext = () => {
     axios
-      .post('http://localhost:5000/play/3', {}, { withCredentials: true })
+      .post('http://decipher-backend.vercel.app/play/3', {}, { withCredentials: true })
       .then((res) => {
         setQuestionsText({ loading: false, error: false, data: res.data });
       })
@@ -56,7 +56,7 @@ const Computer = () => {
 
     axios
       .post(
-        `http://localhost:5000/play/3/solve`,
+        `http://decipher-backend.vercel.app/play/3/solve`,
         {
           challengeNumber: questionsText.data?.challengeNumber,
           auth: userID,

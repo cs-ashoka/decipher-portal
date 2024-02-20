@@ -1,9 +1,12 @@
 import React from 'react';
 import Page from '../Page';
-import elon from '../../assets/images/ElonMusk.png';
-import jeff from '../../assets/images/JeffBezos.png';
-import evan from '../../assets/images/EvanSpiegel.png';
-import marissa from '../../assets/images/MarissaMayer.png';
+import q1 from '../../assets/images/trivia-1.png';
+import q2 from '../../assets/images/trivia-2.png';
+import q3 from '../../assets/images/trivia-3.png';
+import q4 from '../../assets/images/trivia-4.png';
+import q5 from '../../assets/images/trivia-5.png';
+import q6 from '../../assets/images/trivia-6.png';
+
 import axios from 'axios';
 import { useAuth } from '../app';
 import { useNavigate } from 'react-router-dom';
@@ -11,12 +14,12 @@ import { useNavigate } from 'react-router-dom';
 export default function TriviaRoom() {
   const { userID } = useAuth();
   const [stage, setStage] = React.useState(1);
-  const questions = [elon, evan, marissa, jeff];
+  const questions = [q1, q2, q3, q4, q5, q6];
   const [answer, setAnswer] = React.useState('');
 
   const getStageNumber = () => {
     axios
-      .post(`http://localhost:5000/play/1`, {
+      .post(`http://decipher-backend.vercel.app/play/1`, {
         auth: userID,
       })
       .then((res) => {
@@ -32,17 +35,19 @@ export default function TriviaRoom() {
 
   function submit() {
     axios
-      .post(`http://localhost:5000/play/1/solve`, {
+      .post(`http://decipher-backend.vercel.app/play/1/solve`, {
         challengeNumber: stage,
         auth: userID,
         answer: answer,
+      }, {
+        withCredentials: true
       })
       .then((res) => {
         if (res.data) {
           setStage((stage) => stage + 1);
           setAnswer('');
         }
-        if (stage == 4) {
+        if (stage == 6) {
           navigate('/home');
         }
       })
