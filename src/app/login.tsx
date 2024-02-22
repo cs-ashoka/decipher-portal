@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './app';
 
+const BACKEND_URL = 'https://decipher-backend.vercel.app';
+
 const LoginPage = ({ ...props }) => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -12,7 +14,7 @@ const LoginPage = ({ ...props }) => {
   async function loginHandler() {
     axios
       .post(
-        'https://decipher-backend.vercel.app/auth',
+        `${BACKEND_URL}/auth`,
         {
           username: username,
           password: password,

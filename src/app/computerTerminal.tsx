@@ -5,6 +5,8 @@ import { useAuth } from './app';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const BACKEND_URL = 'https://decipher-backend.vercel.app';
+
 type Question = {
   question: string;
   hint: string;
@@ -24,7 +26,7 @@ const Computer = () => {
 
   const fetchNext = () => {
     axios
-      .post('https://decipher-backend.vercel.app/play/3', {}, { withCredentials: true })
+      .post(`${BACKEND_URL}/play/3`, {}, { withCredentials: true })
       .then((res) => {
         setQuestionsText({ loading: false, error: false, data: res.data });
       })
@@ -56,7 +58,7 @@ const Computer = () => {
 
     axios
       .post(
-        `https://decipher-backend.vercel.app/play/3/solve`,
+        `${BACKEND_URL}/play/3/solve`,
         {
           challengeNumber: questionsText.data?.challengeNumber,
           auth: userID,

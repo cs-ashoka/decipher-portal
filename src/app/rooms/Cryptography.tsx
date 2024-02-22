@@ -3,6 +3,8 @@ import Page from "../Page";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const BACKEND_URL = 'https://decipher-backend.vercel.app';
+
 export default function CryptographyRoom() {
     const [progress, setProgress] = React.useState({
         0: false,
@@ -20,7 +22,7 @@ export default function CryptographyRoom() {
 
     const solve = (i:number, answer:string) => {
         console.log(i, answer)
-        axios.post(`https://decipher-backend.vercel.app/play/2/solve/`, {
+        axios.post(`${BACKEND_URL}/play/2/solve/`, {
             challengeNumber: i,
             answer: answer
         }, {
@@ -52,7 +54,7 @@ export default function CryptographyRoom() {
     useEffect(() => {
         const fetchQuestion = async () => {
             try {
-                const response = await axios.post(`https://decipher-backend.vercel.app/play/2`, {}, {withCredentials: true});
+                const response = await axios.post(`${BACKEND_URL}/play/2`, {}, {withCredentials: true});
                 setQuestion(response.data.question);
             } catch (error) {
                 setQuestion('Failed to fetch question');
@@ -89,7 +91,7 @@ export default function CryptographyRoom() {
     useEffect(() => {
         const fetchQuestion = async () => {
             try {
-                const response = await axios.post(`https://decipher-backend.vercel.app/play/2`, {}, {withCredentials: true});
+                const response = await axios.post(`${BACKEND_URL}/play/2`, {}, {withCredentials: true});
                 console.log(response)
                 setQuestion(response.data.question);
             } catch (error) {

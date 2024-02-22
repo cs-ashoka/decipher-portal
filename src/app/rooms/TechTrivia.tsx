@@ -11,6 +11,8 @@ import axios from 'axios';
 import { useAuth } from '../app';
 import { useNavigate } from 'react-router-dom';
 
+const BACKEND_URL = 'https://decipher-backend.vercel.app';
+
 export default function TriviaRoom() {
   const { userID } = useAuth();
   const [stage, setStage] = React.useState(1);
@@ -19,7 +21,7 @@ export default function TriviaRoom() {
 
   const getStageNumber = () => {
     axios
-      .post(`https://decipher-backend.vercel.app/play/1`, {
+      .post(`${BACKEND_URL}/play/1`, {
         auth: userID,
       })
       .then((res) => {
@@ -35,7 +37,7 @@ export default function TriviaRoom() {
 
   function submit() {
     axios
-      .post(`https://decipher-backend.vercel.app/play/1/solve`, {
+      .post(`${BACKEND_URL}/play/1/solve`, {
         challengeNumber: stage,
         auth: userID,
         answer: answer,
