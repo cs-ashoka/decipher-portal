@@ -20,7 +20,7 @@ export default function CryptographyRoom() {
 
     const solve = (i:number, answer:string) => {
         console.log(i, answer)
-        axios.post(`http://localhost:5000/play/2/solve/`, {
+        axios.post(`http://decipher-backend.vercel.app/play/2/solve/`, {
             challengeNumber: i,
             answer: answer
         }, {
@@ -52,7 +52,7 @@ export default function CryptographyRoom() {
     useEffect(() => {
         const fetchQuestion = async () => {
             try {
-                const response = await axios.post(`http://localhost:5000/play/2`, {}, {withCredentials: true});
+                const response = await axios.post(`http://decipher-backend.vercel.app/play/2`, {}, {withCredentials: true});
                 setQuestion(response.data.question);
             } catch (error) {
                 setQuestion('Failed to fetch question');
@@ -89,7 +89,7 @@ export default function CryptographyRoom() {
     useEffect(() => {
         const fetchQuestion = async () => {
             try {
-                const response = await axios.post(`http://localhost:5000/play/2`, {}, {withCredentials: true});
+                const response = await axios.post(`http://decipher-backend.vercel.app/play/2`, {}, {withCredentials: true});
                 console.log(response)
                 setQuestion(response.data.question);
             } catch (error) {
