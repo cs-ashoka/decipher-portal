@@ -3,7 +3,7 @@ import Page from "../Page";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const BACKEND_URL = 'https://decipher.berlm.me';
+const BACKEND_URL = 'https://decipher-backend.onrender.com';
 
 export default function CryptographyRoom() {
     const [progress, setProgress] = React.useState({

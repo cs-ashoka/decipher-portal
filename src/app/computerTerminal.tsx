@@ -5,7 +5,7 @@ import { useAuth } from './app';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const BACKEND_URL = 'https://decipher.berlm.me';
+const BACKEND_URL = 'https://decipher-backend.onrender.com';
 
 type Question = {
   question: string;
