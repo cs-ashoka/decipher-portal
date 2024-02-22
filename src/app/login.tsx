@@ -12,7 +12,7 @@ const LoginPage = ({ ...props }) => {
   async function loginHandler() {
     axios
       .post(
-        'http://decipher-backend.vercel.app/auth',
+        'https://decipher-backend.vercel.app/auth',
         {
           username: username,
           password: password,

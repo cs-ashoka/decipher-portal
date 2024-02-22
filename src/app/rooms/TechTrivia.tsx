@@ -19,7 +19,7 @@ export default function TriviaRoom() {
 
   const getStageNumber = () => {
     axios
-      .post(`http://decipher-backend.vercel.app/play/1`, {
+      .post(`https://decipher-backend.vercel.app/play/1`, {
         auth: userID,
       })
       .then((res) => {
@@ -35,7 +35,7 @@ export default function TriviaRoom() {
 
   function submit() {
     axios
-      .post(`http://decipher-backend.vercel.app/play/1/solve`, {
+      .post(`https://decipher-backend.vercel.app/play/1/solve`, {
         challengeNumber: stage,
         auth: userID,
         answer: answer,
