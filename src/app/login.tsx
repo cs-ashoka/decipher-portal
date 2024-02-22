@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './app';
 
-const BACKEND_URL = 'https://decipher-backend.vercel.app';
+const BACKEND_URL = 'https://decipher.berlm.me';
 
 const LoginPage = ({ ...props }) => {
   const [username, setUsername] = React.useState('');

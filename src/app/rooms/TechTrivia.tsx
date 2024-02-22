@@ -11,7 +11,7 @@ import axios from 'axios';
 import { useAuth } from '../app';
 import { useNavigate } from 'react-router-dom';
 
-const BACKEND_URL = 'https://decipher-backend.vercel.app';
+const BACKEND_URL = 'https://decipher.berlm.me';
 
 export default function TriviaRoom() {
   const { userID } = useAuth();
