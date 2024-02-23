@@ -107,8 +107,9 @@ export default function CryptographyRoom() {
           }
         } catch (error: any) {
           if (error.code === 'ERR_BAD_REQUEST') {
-            setQuestion('You have already solved this challenge');
+            // setQuestion('You have already solved this challenge');
             setSolved(true);
+            navigate('/home');
           } else setQuestion('Failed to fetch question');
         }
       };
