@@ -15,6 +15,11 @@ button:hover {
   cursor: pointer;
 }
 
+textarea:focus{
+  outline: none;
+
+}
+
 .question {
   /* text-align: justify  ; */
   /* font-family: 'CMU Serif'; */
