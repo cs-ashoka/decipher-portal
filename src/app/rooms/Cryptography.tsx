@@ -43,6 +43,8 @@ export default function CryptographyRoom() {
         else{
             setError(true)
         }
+    }).catch((error) => {
+        setError(true)
     })
     }
 
@@ -94,8 +96,9 @@ export default function CryptographyRoom() {
                 const response = await axios.post(`${BACKEND_URL}/play/2`, {}, {withCredentials: true});
                 console.log(response)
                 setQuestion(response.data.question);
-            } catch (error) {
-                setQuestion('Failed to fetch question');
+            } catch (error: any) {
+                if (error.code === "ERR_BAD_REQUEST") setQuestion('You have already solved this challenge')
+                else setQuestion('Failed to fetch question');
             }
         };
 
