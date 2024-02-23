@@ -237,6 +237,7 @@ export default function CryptographyRoom() {
               setSafeOpen(true);
             }
           }}
+          className={safeOpen ? 'interactable' : ''}
           style={{
             height: 10,
             fontWeight: 700,
@@ -264,35 +265,8 @@ export default function CryptographyRoom() {
           onClick={() => setModal(currentChallenge)}
           style={{
             position: 'relative',
-            top: 280,
-            right: 480,
-            width: 30,
-            height: 25,
-          }}
-        >
-          <img src={'../../assets/images/Knob.svg'} height={22}></img>
-          {/* <object  data={knob} type="image/svg+xml" height={22}></object> */}
-        </div>
-        <div
-          className="interactable"
-          onClick={() => setModal(currentChallenge)}
-          style={{
-            position: 'relative',
             top: 307,
-            right: 510,
-            width: 30,
-            height: 25,
-          }}
-        >
-          <img src={'../../assets/images/Knob.svg'} height={22}></img>
-        </div>
-        <div
-          className="interactable"
-          onClick={() => setModal(currentChallenge)}
-          style={{
-            position: 'relative',
-            top: 335,
-            right: 540,
+            right: 480,
             width: 30,
             height: 25,
           }}
