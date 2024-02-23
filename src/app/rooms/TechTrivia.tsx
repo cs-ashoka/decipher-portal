@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Page from '../Page';
 import q1 from '../../assets/images/trivia-1.png';
 import q2 from '../../assets/images/trivia-2.png';
@@ -18,38 +18,56 @@ export default function TriviaRoom() {
   const [stage, setStage] = React.useState(1);
   const questions = [q1, q2, q3, q4, q5, q6];
   const [answer, setAnswer] = React.useState('');
+  const [loading, setLoading] = React.useState(true);
+  const [solved, setSolved] = React.useState(false);
 
   const getStageNumber = () => {
     axios
       .post(`${BACKEND_URL}/play/1`, {
-        auth: userID,
+      }, {
+        withCredentials: true
       })
       .then((res) => {
+        console.log(res)
         if (res.data) {
-          setStage((stage) => res.data.challengeNumber);
+          setStage((stage) => res.data.challengeNumber + 1);
+          setLoading(false)
         }
       })
       .catch((err) => {
         console.log(err);
+        if (err.code === "ERR_BAD_REQUEST") navigate("/home")
       });
   };
+
+  useEffect(() => {
+    setLoading(true)
+    getStageNumber()
+    console.log("effect")
+  }, []);
+  // getStageNumber();
+  console.log(stage)
+
   const navigate = useNavigate();
 
   function submit() {
     axios
       .post(`${BACKEND_URL}/play/1/solve`, {
-        challengeNumber: stage,
+        challengeNumber: stage - 1,
         auth: userID,
         answer: answer,
       }, {
         withCredentials: true
       })
       .then((res) => {
+        console.log(res);
         if (res.data) {
-          setStage((stage) => stage + 1);
+          if (stage == 5) setSolved(true);
+          getStageNumber()
+          // setStage((stage) => stage + 1);
           setAnswer('');
         }
-        if (stage == 6) {
+        if (solved) {
           navigate('/home');
         }
       })
@@ -66,7 +84,7 @@ export default function TriviaRoom() {
       >
         ← Back
       </a>
-      {stage && (
+      {stage && !loading && (
         <>
           <h3>Guess Who</h3>
           <img src={questions[stage - 1]} alt="" width={400} />
