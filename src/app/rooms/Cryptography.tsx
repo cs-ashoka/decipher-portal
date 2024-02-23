@@ -33,8 +33,8 @@ export default function CryptographyRoom() {
              {
             setProgress(progress => ({...progress, [i]: true}))
             setModal(0)
-            setCurrentChallenge(currentChallenge + 1);
-                        console.log(currentChallenge)
+            // setCurrentChallenge(currentChallenge + 1);
+            //             console.log(currentChallenge)
             if (i == 3) {
                 setSafeOpen(false)
                 navigate('/home')
@@ -96,6 +96,7 @@ export default function CryptographyRoom() {
                 const response = await axios.post(`${BACKEND_URL}/play/2`, {}, {withCredentials: true});
                 console.log(response)
                 setQuestion(response.data.question);
+                setCurrentChallenge(response.data.challengeNumber);
             } catch (error: any) {
                 if (error.code === "ERR_BAD_REQUEST") setQuestion('You have already solved this challenge')
                 else setQuestion('Failed to fetch question');
@@ -118,7 +119,7 @@ export default function CryptographyRoom() {
                     <h3 style={{ margin: 0 }}>{question}</h3>
                     <input value={key} onChange={(e) => setKey(e.target.value)} type="text" />
                     <button onClick={() => {
-                    solve(currentChallenge-1, key)}}>Submit</button>
+                    solve(currentChallenge, key)}}>Submit</button>
                 </div>
             </div>
         );
