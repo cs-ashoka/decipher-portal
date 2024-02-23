@@ -11,6 +11,10 @@ h1 {
   font-size: 3rem;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .question {
   /* text-align: justify  ; */
   /* font-family: 'CMU Serif'; */
