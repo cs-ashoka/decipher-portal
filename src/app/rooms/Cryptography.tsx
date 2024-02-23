@@ -124,12 +124,11 @@ export default function CryptographyRoom() {
                     position: "absolute", zIndex: 20, width: '100vw', height: '100vh', display: "flex", backgroundColor: '#00000099', justifyContent: "center", alignItems: "center",
                     flexDirection: "column"
                 }}>
-                <div style={{ padding:"20px", width: '500px', height: "auto" , color: "black", backgroundColor: "grey", display: "flex", justifyContent: "space-evenly", alignItems: "center", flexDirection: "column", position:"relative", borderRadius:"50px" }}>
-                   
+                <div style={{ padding:"20px 30px", width: '500px', height: "auto" , color: "black", backgroundColor: "white", display: "flex", justifyContent: "space-evenly", alignItems: "center", flexDirection: "column", position:"relative", borderRadius:"20px" }}>
                     <div style={{ color: "red", display: error ? 'block' : 'none', margin: 0 }}>Incorrect answer</div>
                     <div style={{ color: "red", display: warning ? 'block' : 'none', margin: 0 }}>Open the safe</div>
                     <h3 style={{ display: warning ? 'none' : 'block', margin: 5 }}>{question}</h3>
-                    <input style={{ display: warning || solved ? 'none' : 'block', margin: 5, backgroundColor: "lightGrey", borderRadius:"10px" }} value={key} onChange={(e) => setKey(e.target.value)} type="text" />
+                    <input style={{ display: warning || solved ? 'none' : 'block', margin: 5, backgroundColor: "white", borderRadius:"5px" }} value={key} onChange={(e) => setKey(e.target.value)} type="text" />
                     <div style={{display: "flex"}}>
                     <button onClick={() => setModal(0)} style={{ cursor: "pointer", backgroundColor: "black", margin: 5, width: "80px",height: "25px", color:"white", borderRadius: "10px" }}>Close</button>
                     <button style={{ display: warning || solved ? 'none' : 'block', margin: 5, backgroundColor:"black", border:"none", borderRadius: "10px", boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', color:"white", width: "80px",height: "25px", cursor:"pointer" }} onClick={() => {
