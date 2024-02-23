@@ -130,25 +130,14 @@ export default function CryptographyRoom() {
             {modal !== 0  && <SafeModal a={modal} />}
             <a href="/home" style={{color: "white", alignSelf: 'baseline', marginLeft: 25}}>← Back</a>
             <div style={{display: "flex"}}>
-                <p onClick={() => {if(currentChallenge == 3) {setSafeOpen(true)}}} style={{height: 10, fontWeight: 700, transform: 'rotate(-30deg)', position: "relative", top: 250, left: 240, cursor: 'pointer', fontSize: '0.5rem', zIndex: 10}}>Open the safe</p>
+                <p onClick={() => {if(currentChallenge == 3) {setSafeOpen(true)}}} className={safeOpen ? 'interactable' : ''} style={{height: 10, fontWeight: 700, transform: 'rotate(-30deg)', position: "relative", top: 250, left: 240, cursor: 'pointer', fontSize: '0.5rem', zIndex: 10}}>Open the safe</p>
                 <img src={'../../assets/images/cryptographyroom.jpg'} height={600}>
                 {/* <object data={roomImage} type="image/svg+xml" height={600}> */}
                 </img>
                 <img src={'../../assets/images/Safe.svg'} style={{position: "relative", right: 450, top: 225}} height={150}></img>
                 <div 
                     className="interactable" onClick={() => setModal(currentChallenge)}
-                    style={{position: "relative", top: 280, right: 480, width: 30, height: 25}}>
-                    <img  src={'../../assets/images/Knob.svg'} height={22}></img>
-                    {/* <object  data={knob} type="image/svg+xml" height={22}></object> */}
-                </div>
-                <div 
-                    className="interactable" onClick={() => setModal(currentChallenge)}
-                    style={{position: "relative", top: 307, right: 510, width: 30, height: 25}}>
-                    <img  src={'../../assets/images/Knob.svg'} height={22}></img>
-                </div>
-                <div 
-                    className="interactable" onClick={() => setModal(currentChallenge)}
-                    style={{position: "relative", top: 335, right: 540, width: 30, height: 25}}>
+                    style={{position: "relative", top: 307, right: 480, width: 30, height: 25}}>
                     <img  src={'../../assets/images/Knob.svg'} height={22}></img>
                 </div>
             </div>
