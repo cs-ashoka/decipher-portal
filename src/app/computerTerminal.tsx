@@ -16,7 +16,7 @@ type Question = {
 
 const Computer = () => {
   const [textAreaValue, setTextAreaValue] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(false);
 
   const [questionsText, setQuestionsText] = useState<{
     loading: boolean;
@@ -54,7 +54,7 @@ const Computer = () => {
   }, [questionsText]);
 
   function submit() {
-    setError('');
+    setError(false);
 
     axios
       .post(
@@ -73,10 +73,12 @@ const Computer = () => {
           // setStage((stage) => stage + 1);
           setTextAreaValue('');
         }
+        else {
+          setError(true);
+        }
       })
       .catch((err: any) => {
         console.log(JSON.stringify(err));
-        setError(err);
         // setStage((stage) => stage + 1);
       });
   }
@@ -200,7 +202,7 @@ const Computer = () => {
       </div>
       {
         //@ts-ignore
-        error && <p style={{ margin: 0, color: 'red' }}>Wrong answer!</p>
+        <p style={{ display: error? 'block' : 'none'}}>Wrong answer!</p>
       }
 
       <button
