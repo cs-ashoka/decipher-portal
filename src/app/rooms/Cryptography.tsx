@@ -31,7 +31,7 @@ export default function CryptographyRoom() {
         console.log(i);
         if (res.data) {
           setModal(0);
-          // setCurrentChallenge(currentChallenge + 1);
+          setCurrentChallenge(currentChallenge + 1);
           //             console.log(currentChallenge)
           if (i == 3) {
             setSafeOpen(false);
