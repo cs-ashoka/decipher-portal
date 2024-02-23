@@ -1,41 +1,100 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
-import { AuthProvider, useAuth } from "./app";
+import { useNavigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './app';
 
-const LoginPage = ({...props}) => {
-    const [username, setUsername] = React.useState('');
-    const [password, setPassword] = React.useState('');;
+const BACKEND_URL = 'https://decipher-backend.onrender.com';
 
-    const auth = useAuth();
+const LoginPage = ({ ...props }) => {
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
-    async function loginHandler() {
-        axios.post('https://decipher-backend.vercel.app/auth', {
-            username: username,
-            password: password
-        }).then((res) => {
-            console.log('login')
-            auth.login(res.data.id)
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
+  const auth = useAuth();
 
-    return (
-        <div className="page">
-            <div style={{display: "flex", flexDirection: "column", justifyContent: 'space-evenly', alignItems: "center"}}>
+  async function loginHandler() {
+    axios
+      .post(
+        `${BACKEND_URL}/auth`,
+        {
+          username: username,
+          password: password,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log('login');
+        auth.login(res.data.id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
-            <h1>Decipher</h1>
-            <p>A Banjaara 2023 Event</p>
-            <input className="text-box" value={username} onChange={(e) => setUsername(e.target.value)} type="text" name="username" placeholder="Team Username" />
-            <br />
-            <input className="text-box" value={password} onChange={(e) => setPassword(e.target.value)} type="password" name="password" placeholder="Password"/>
-            <br />
-            <button onClick={() => loginHandler()} style={{backgroundColor: '#FF6612', border: 'none', padding: '5px', borderRadius: '5px', width: '100%', marginTop: '20px'}}>Log In</button>
-            <p style={{textAlign: "center"}}>Powered by the CS Society</p>
-            </div>
-        </div>
-    );
+  return (
+    <div className="page">
+      <div className="login-page">
+        <form
+          className="login-container"
+          onSubmit={(e) => {
+            e.preventDefault();
+            loginHandler();
+          }}
+        >
+          <h1 style={{ fontWeight: 'bold' }}>Just In Case</h1>
+          <p className="event-info">An Equilibrium 2024 Event</p>
+          <input
+            className="text-box"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            type="text"
+            name="username"
+            placeholder="Team Username"
+          />
+          <input
+            className="text-box"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
+          <button
+            className="login-button"
+            //  onClick={loginHandler}
+          >
+            {' '}
+            Log In{' '}
+          </button>
+          <p className="footer">Developed by the CS Society</p>
+          <div className="society-logos">
+            <img
+              className="society-logo"
+              src="../assets/images/equilibrium.png"
+              alt="Equilibrium Logo"
+            />
+            <span className="collaboration-symbol">X</span>
+            <img
+              className="society-logo"
+              src="../assets/images/cssociety_logo.png"
+              alt="CS Soc Logo"
+            />
+            <span className="collaboration-symbol">X</span>
+            <img
+              className="society-logo"
+              src="../assets/images/econsoc.png"
+              alt="Econ Soc Logo"
+            />
+            <span className="collaboration-symbol">X</span>
+            <img
+              className="society-logo"
+              src="../assets/images/acc_logo_main.png"
+              alt="ACC Logo"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default LoginPage;
