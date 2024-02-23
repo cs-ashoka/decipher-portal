@@ -7,6 +7,7 @@ import Debugging from './rooms/Debugging';
 import CryptographyRoom from './rooms/Cryptography';
 import TriviaRoom from './rooms/TechTrivia';
 import HomePage from './homePage';
+import Logout from './logout';
 import {useNavigate, Navigate} from 'react-router-dom';
 import Error from './Error';
 
@@ -85,6 +86,8 @@ export function App() {
           <Route path="/2" element={<ProtectedRoute><CryptographyRoom /></ProtectedRoute>} />
           <Route path="/1" element={<ProtectedRoute><TriviaRoom /></ProtectedRoute>} />
           <Route path="/3/computer" element={<ProtectedRoute><Computer /></ProtectedRoute>} />
+          <Route path="/3/computer" element={<ProtectedRoute><Computer /></ProtectedRoute>} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
