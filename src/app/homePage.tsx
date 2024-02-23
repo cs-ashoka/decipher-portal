@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef} from 'react';
 
-import floorTiles from  "../assets/images/floorTile.png";
 import restro from "../assets/images/restro.jpg";
 
 import upIdle from "../assets/images/up_idle.png";
@@ -8,14 +7,10 @@ import upWalkRight from "../assets/images/up_walk_right.png";
 import upWalkLeft from "../assets/images/up_walk_left.png";
 import leftIdle from "../assets/images/left_idle.png";
 import leftWalkRight from "../assets/images/left_walk_right.png";
-import leftWalkLeft from "../assets/images/left_walk_left.png";
 import rightIdle from "../assets/images/right_idle.png";
 import rightWalkRight from "../assets/images/right_walk_right.png";
-import rightWalkLeft from "../assets/images/right_walk_left.png";
 import downIdle from "../assets/images/down_idle.png";
 import downWalkRight from "../assets/images/down_walk_right.png";
-import downWalkLeft from "../assets/images/down_walk_left.png";
-
 import debuggingRoom from "../assets/images/debuggingRoom.png";
 import cryptoRoom from "../assets/images/cryptoRoom.png";
 import dsaRoom from "../assets/images/dsaRoom.png";
@@ -69,21 +64,39 @@ const HomePage = () => {
 
   //checking collision with room walls
   function collidingWithCrypto(x:any, y:any) {
-    return ((x) < (width/2 - 50)) && (((y) < (width/2 - 80)));
+    return ((x) < (width/2 - sizeDiff)) && (((y) < (width/2 - 120)));
   }
 
   function collidingWithDebug(x:any, y:any) {
-    return ((x) < (width/2 - 60)) && (((y) > (height/2)));
+    return ((x) < (width/2 - sizeDiff)) && (((y) > (height/2 +40)));
   }
 
   function collidingWithGeneral(x:any, y:any) {
-    return ((x > (width/2 + 10)) && (y > (height/2)));
+    return ((x > (width/2 + sizeDiff - 40)) && (y > (height/2 + 40)));
   }
 
   function collidingWithTable(x:any, y:any) {
+    //first table
+    y = y+40
+    x= x+40
 
-    //return (  ((x > width/2) && (x < width/2 +200 ))  && ( (y < height/2) && (y > height/2-200)  )  )
-    return(false);
+    const sf = width / 1000;
+
+    let newX = (570) * sf;
+    let newY = (330) * sf;
+    const newSize = 150 * sf;
+
+    const t1 :boolean = (x > newX) && (x < (newX + newSize)) && (y > newY) && (y < (newY + newSize));
+
+
+
+    newX = 215 * sf;
+    newY = 470 * sf;
+    x = x- 20;
+    const t2 :boolean = (x > newX) && (x < (newX + newSize)) && (y > newY) && (y < (newY + newSize));
+
+    return t1 || t2;
+
   }
 
   //checking if entering room door
@@ -109,26 +122,43 @@ const HomePage = () => {
   const handleKeyDown = (e:KeyboardEvent) => {
     enteringDoorway(xPosRef.current, yPosRef.current);
     
-      if (e.key === 'ArrowLeft') {
-        if ((xPosRef.current > 0) && !(collidingWithCrypto(xPosRef.current, yPosRef.current)) && !(collidingWithDebug(xPosRef.current, yPosRef.current)) && !(collidingWithTable(xPosRef.current, yPosRef.current))) {
-            setRectPosition((prev) => ({ x: prev.x - stepSize, y: prev.y }));
-        }
+    if (e.key === 'ArrowLeft') {
+      if (xPosRef.current > 0 && !collidingWithCrypto(xPosRef.current, yPosRef.current) && !collidingWithDebug(xPosRef.current, yPosRef.current)) {
+          if (collidingWithTable(xPosRef.current - stepSize, yPosRef.current)) {
+              setRectPosition(prev => ({ x: prev.x + stepSize, y: prev.y }));
+          } else {
+              setRectPosition(prev => ({ x: prev.x - stepSize, y: prev.y }));
+          }
       }
-      if  (e.key === 'ArrowRight') {
-        if ((xPosRef.current < width- 50) && !(collidingWithGeneral(xPosRef.current, yPosRef.current)) && !(collidingWithTable(xPosRef.current, yPosRef.current))) {
-            setRectPosition((prev) => ({ x: prev.x + stepSize, y: prev.y }));
-        }
+  }
+  if (e.key === 'ArrowRight') {
+      if (xPosRef.current < width - 50 && !collidingWithGeneral(xPosRef.current, yPosRef.current)) {
+          if (collidingWithTable(xPosRef.current + stepSize, yPosRef.current)) {
+              setRectPosition(prev => ({ x: prev.x - stepSize, y: prev.y }));
+          } else {
+              setRectPosition(prev => ({ x: prev.x + stepSize, y: prev.y }));
+          }
       }
-      if  (e.key === 'ArrowUp') {
-        if ((yPosRef.current > 0) && !(collidingWithCrypto(xPosRef.current, yPosRef.current)) && !(collidingWithTable(xPosRef.current, yPosRef.current))) {
-            setRectPosition((prev) => ({ x: prev.x, y: prev.y - stepSize }));
-        }
+  }
+  if (e.key === 'ArrowUp') {
+      if (yPosRef.current > 0 && !collidingWithCrypto(xPosRef.current, yPosRef.current)) {
+          if (collidingWithTable(xPosRef.current, yPosRef.current - stepSize)) {
+              setRectPosition(prev => ({ x: prev.x, y: prev.y + stepSize }));
+          } else {
+              setRectPosition(prev => ({ x: prev.x, y: prev.y - stepSize }));
+          }
       }
-      if  (e.key === 'ArrowDown') {
-        if ((yPosRef.current < height - 50) && !(collidingWithDebug(xPosRef.current, yPosRef.current)) && !(collidingWithGeneral(xPosRef.current, yPosRef.current)) && !(collidingWithTable(xPosRef.current, yPosRef.current))) {
-            setRectPosition((prev) => ({ x: prev.x, y: prev.y + stepSize }));
-        }
+  }
+  if (e.key === 'ArrowDown') {
+      if (yPosRef.current < height - 50 && !collidingWithDebug(xPosRef.current, yPosRef.current) && !collidingWithGeneral(xPosRef.current, yPosRef.current)) {
+          if (collidingWithTable(xPosRef.current, yPosRef.current + stepSize)) {
+              setRectPosition(prev => ({ x: prev.x, y: prev.y - stepSize }));
+          } else {
+              setRectPosition(prev => ({ x: prev.x, y: prev.y + stepSize }));
+          }
       }
+  }
+  
     
   };
 
@@ -179,6 +209,63 @@ const HomePage = () => {
   }, []);
 
 
+
+
+  const sizeDiff = 100;
+
+  //ignore the following, for debugging purposes
+  function renderGrid() {
+    let grid = [];
+    for (let i = 0; i < width; i += 100) {
+      for (let j = 0; j < height; j += 100) {
+        grid.push(
+          <div
+            style={{
+              width: '5px',
+              height: '5px',
+              backgroundColor: 'red',
+              position: 'absolute',
+              left: i + 'px',
+              top: j + 'px',
+            }}
+            >{i}</div>
+          
+        );
+      }
+    }
+    return grid;
+  }
+
+  const g = renderGrid();
+
+
+  function drawSquare(x: number, y: number, side: number) {
+    return (
+      <div
+        style={{
+          width: side + 'px',
+          height: side + 'px',
+          backgroundColor: 'transparent',
+          border: '2px solid red',
+          position: 'absolute',
+          left: x + 'px',
+          top: y + 'px',
+        }}
+      />
+    );
+  }
+  const ogX = 500 + 70;
+  const ogY = 500 - 170;
+  const ogSize = 150;
+
+  const sf = width / 1000;
+
+  const newX = ogX * sf;
+  const newY = ogY * sf;
+  const newX2 = 215 * sf;
+  const newY2 = 470 * sf;
+  const newSize = ogSize * sf;
+
   return (
     <Page>
     <div
@@ -197,12 +284,12 @@ const HomePage = () => {
         {
           backgroundImage: `url(${dRoom})`,
           backgroundRepeat: 'no-repeat',
-          backgroundSize: (width/2 - 50) + "px",
-          width: (width/2 - 50) + "px",
-          height : (width/2 - 50) + "px",
+          backgroundSize: (width/2 - sizeDiff) + "px",
+          width: (width/2 - sizeDiff) + "px",
+          height : (width/2 - sizeDiff) + "px",
           position: 'absolute',
           left: 0 + "px",
-          top: ((height/2 + 50)) + "px"
+          top: ((height/2 + sizeDiff)) + "px"
         }
       }
       >
@@ -213,9 +300,9 @@ const HomePage = () => {
         {
           backgroundImage: `url(${cRoom})`,
           backgroundRepeat: 'no-repeat',
-          backgroundSize: (width/2 - 50) + "px",
-          width: (width/2 - 50) + "px",
-          height : (width/2 - 50) + "px",
+          backgroundSize: (width/2 - sizeDiff) + "px",
+          width: (width/2 - sizeDiff) + "px",
+          height : (width/2 - sizeDiff) + "px",
           position: 'absolute',
           left: 0 + "px",
           top: 0 + "px"
@@ -229,17 +316,16 @@ const HomePage = () => {
         {
           backgroundImage: `url(${gRoom})`,
           backgroundRepeat: 'no-repeat',
-          backgroundSize: (width/2 - 50) + "px",
-          width: (width/2 - 50) + "px",
-          height : (width/2 - 50) + "px",
+          backgroundSize: (width/2 - sizeDiff) + "px",
+          width: (width/2 - sizeDiff) + "px",
+          height : (width/2 - sizeDiff) + "px",
           position: 'absolute',
-          left: (width/2 + 50) + "px",
-          top: ((height/2 + 50)) + "px"
+          left: (width/2 + sizeDiff) + "px",
+          top: ((height/2 + sizeDiff)) + "px"
         }
       }
       >
       </div>
-
       <div
         style={{
           backgroundImage: `url(${playerSprite})`,
@@ -253,6 +339,8 @@ const HomePage = () => {
         }}
       />
     </div>
+
+
     </Page>
   );
 };
