@@ -1,16 +1,21 @@
 import React, { useState, useEffect, useRef} from 'react';
 
-import restro from "../assets/images/restro.jpg";
+import floorTiles from  "../assets/images/floorTile.png";
+import restro from "../assets/images/restaurant.png";
 
 import upIdle from "../assets/images/up_idle.png";
 import upWalkRight from "../assets/images/up_walk_right.png";
 import upWalkLeft from "../assets/images/up_walk_left.png";
 import leftIdle from "../assets/images/left_idle.png";
 import leftWalkRight from "../assets/images/left_walk_right.png";
+import leftWalkLeft from "../assets/images/left_walk_left.png";
 import rightIdle from "../assets/images/right_idle.png";
 import rightWalkRight from "../assets/images/right_walk_right.png";
+import rightWalkLeft from "../assets/images/right_walk_left.png";
 import downIdle from "../assets/images/down_idle.png";
 import downWalkRight from "../assets/images/down_walk_right.png";
+import downWalkLeft from "../assets/images/down_walk_left.png";
+
 import debuggingRoom from "../assets/images/debuggingRoom.png";
 import cryptoRoom from "../assets/images/cryptoRoom.png";
 import dsaRoom from "../assets/images/dsaRoom.png";
