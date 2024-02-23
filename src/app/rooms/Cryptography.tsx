@@ -60,13 +60,14 @@ export default function CryptographyRoom() {
 
         fetchQuestion();
     }, []);
+
         return(
             <div
                 style={{
                     position: "absolute", zIndex: 20, width: '100vw', height: '100vh', display: "flex", backgroundColor: '#00000099', justifyContent: "center", alignItems: "center",
                     flexDirection: "column"
                 }}>
-                <div style={{ padding:"20px", width: 'fit-content', color: "black", height: 'fit-content', backgroundColor: "white", display: "flex", justifyContent: "space-evenly", alignItems: "center", flexDirection: "column" }}>
+                <div className="modal" style={{ padding:"20px", width: 'fit-content', color: "black", height: 'fit-content', backgroundColor: "grey", display: "flex", justifyContent: "space-evenly", alignItems: "center", flexDirection: "column" }}>
                     <div onClick={() => setSafeOpen(false)} style={{ cursor: "pointer" }}>Close</div>
                     <div style={{ display: error ? 'block' : 'none', margin: 5 }}>Incorrect answer</div>
                     <h3 style={{ margin: 5 }}>{question}</h3>
@@ -80,7 +81,7 @@ export default function CryptographyRoom() {
     
     function SafeModal({ a }: { a: number }) {
         const [key, setKey] = useState('');
-        const [question, setQuestion] = useState('');
+        const [question, setQuestion] = useState('Loading...');
         setError(false)
 
     useEffect(() => {
@@ -104,6 +105,8 @@ export default function CryptographyRoom() {
 
         fetchQuestion();
     }, []);
+
+    
     
         return (
             <div
@@ -111,14 +114,17 @@ export default function CryptographyRoom() {
                     position: "absolute", zIndex: 20, width: '100vw', height: '100vh', display: "flex", backgroundColor: '#00000099', justifyContent: "center", alignItems: "center",
                     flexDirection: "column"
                 }}>
-                <div style={{ padding:"20px", width: 'fit-content', color: "black", height: 'fit-content', backgroundColor: "white", display: "flex", justifyContent: "space-evenly", alignItems: "center", flexDirection: "column" }}>
-                    <div onClick={() => setModal(0)} style={{ cursor: "pointer" }}>Close</div>
+                <div style={{ padding:"20px", width: '500px', height: "auto" , color: "black", backgroundColor: "grey", display: "flex", justifyContent: "space-evenly", alignItems: "center", flexDirection: "column", position:"relative", borderRadius:"50px" }}>
+                   
                     <div style={{ color: "red", display: error ? 'block' : 'none', margin: 0 }}>Incorrect answer</div>
                     <div style={{ color: "red", display: warning ? 'block' : 'none', margin: 0 }}>Open the safe</div>
                     <h3 style={{ display: warning ? 'none' : 'block', margin: 5 }}>{question}</h3>
-                    <input style={{ display: warning || solved ? 'none' : 'block', margin: 5 }} value={key} onChange={(e) => setKey(e.target.value)} type="text" />
-                    <button style={{ display: warning || solved ? 'none' : 'block', margin: 5 }} onClick={() => {
+                    <input style={{ display: warning || solved ? 'none' : 'block', margin: 5, backgroundColor: "lightGrey", borderRadius:"10px" }} value={key} onChange={(e) => setKey(e.target.value)} type="text" />
+                    <div style={{display: "flex"}}>
+                    <button onClick={() => setModal(0)} style={{ cursor: "pointer", backgroundColor: "black", margin: 5, width: "80px",height: "25px", color:"white", borderRadius: "10px" }}>Close</button>
+                    <button style={{ display: warning || solved ? 'none' : 'block', margin: 5, backgroundColor:"black", border:"none", borderRadius: "10px", boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', color:"white", width: "80px",height: "25px", cursor:"pointer" }} onClick={() => {
                     solve(currentChallenge, key)}}>Submit</button>
+                    </div>
                 </div>
             </div>
         );
