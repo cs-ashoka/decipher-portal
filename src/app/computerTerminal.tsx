@@ -31,9 +31,9 @@ const Computer = () => {
         setQuestionsText({ loading: false, error: false, data: res.data });
       })
       .catch((err) => {
-        // if (levelStage === questionsText.data.length) {
-        //   navigate('/home');
-        // }
+        if (err.code === 'ERR_BAD_REQUEST') {
+          navigate('/home');
+        }
         console.log(err);
         setQuestionsText({ loading: false, error: true, data: undefined });
       });
@@ -202,11 +202,6 @@ const Computer = () => {
         //@ts-ignore
         error && <p style={{ margin: 0, color: 'red' }}>Wrong answer!</p>
       }
-      <p style={{ textAlign: 'center', margin: '0 10px', fontSize: '0.9rem' }}>
-        Type in your answer. You get unlimited tries, but a lesser amount of
-        tries will put you higher on the leaderboard. Make sure you click off
-        the button before pressing enter.
-      </p>
 
       <button
         onClick={() => {

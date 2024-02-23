@@ -1,64 +1,71 @@
-import React, { useState, useEffect } from "react";
-import Page from "../Page";
+import React, { useState, useEffect } from 'react';
+import Page from '../Page';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const BACKEND_URL = 'https://decipher-backend.onrender.com';
 
 export default function CryptographyRoom() {
+  const [currentChallenge, setCurrentChallenge] = useState(1);
+  const [modal, setModal] = React.useState(0);
+  const [safeOpen, setSafeOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  const [warning, setWarning] = useState(false);
+  const [solved, setSolved] = useState(false);
 
-    const [currentChallenge, setCurrentChallenge] = useState(1);
-    const [modal, setModal] = React.useState(0);
-    const [safeOpen, setSafeOpen] = React.useState(false);
-    const navigate = useNavigate()
-    const [error, setError] = useState(false);
-    const [warning, setWarning] = useState(false);
-    const [solved, setSolved] = useState(false);
-
-    const solve = (i:number, answer:string) => {
-        console.log(i, answer)
-        axios.post(`${BACKEND_URL}/play/2/solve/`, {
-            challengeNumber: i,
-            answer: answer
-        }, {
-            withCredentials:true
-        }).then((res) => {
-            console.log(i)
-            if (res.data)
-             {
-            setModal(0)
-            // setCurrentChallenge(currentChallenge + 1);
-            //             console.log(currentChallenge)
-            if (i == 3) {
-                setSafeOpen(false)
-                navigate('/home')
-            }
+  const solve = (i: number, answer: string) => {
+    console.log(i, answer);
+    axios
+      .post(
+        `${BACKEND_URL}/play/2/solve/`,
+        {
+          challengeNumber: i,
+          answer: answer,
+        },
+        {
+          withCredentials: true,
         }
-        else{
-            setError(true)
+      )
+      .then((res) => {
+        console.log(i);
+        if (res.data) {
+          setModal(0);
+          // setCurrentChallenge(currentChallenge + 1);
+          //             console.log(currentChallenge)
+          if (i == 3) {
+            setSafeOpen(false);
+            navigate('/home');
+          }
+        } else {
+          setError(true);
         }
-    }).catch((error) => {
-        setError(true)
-    })
-    }
+      })
+      .catch((error) => {
+        setError(true);
+      });
+  };
 
-    function Safe() {
-
-        const [key, setKey] = useState('')
-        const [question, setQuestion] = useState('');
+  function Safe() {
+    const [key, setKey] = useState('');
+    const [question, setQuestion] = useState('');
 
     useEffect(() => {
-        const fetchQuestion = async () => {
-            try {
-                const response = await axios.post(`${BACKEND_URL}/play/2`, {}, {withCredentials: true});
-                setQuestion(response.data.question);
-                setError(false)
-            } catch (error) {
-                setQuestion('Failed to fetch question');
-            }
-        };
+      const fetchQuestion = async () => {
+        try {
+          const response = await axios.post(
+            `${BACKEND_URL}/play/2`,
+            {},
+            { withCredentials: true }
+          );
+          setQuestion(response.data.question);
+          setError(false);
+        } catch (error) {
+          setQuestion('Failed to fetch question');
+        }
+      };
 
-        fetchQuestion();
+      fetchQuestion();
     }, []);
 
         return(
@@ -85,25 +92,28 @@ export default function CryptographyRoom() {
         setError(false)
 
     useEffect(() => {
-        const fetchQuestion = async () => {
-            try {
-                const response = await axios.post(`${BACKEND_URL}/play/2`, {}, {withCredentials: true});
-                console.log(response)
-                setQuestion(response.data.question);
-                setCurrentChallenge(response.data.challengeNumber);
-                if (currentChallenge == 3) {
-                    setWarning(true)
-                }
-            } catch (error: any) {
-                if (error.code === "ERR_BAD_REQUEST") {
-                    setQuestion('You have already solved this challenge')
-                    setSolved(true);
-                }
-                else setQuestion('Failed to fetch question');
-            }
-        };
+      const fetchQuestion = async () => {
+        try {
+          const response = await axios.post(
+            `${BACKEND_URL}/play/2`,
+            {},
+            { withCredentials: true }
+          );
+          console.log(response);
+          setQuestion(response.data.question);
+          setCurrentChallenge(response.data.challengeNumber);
+          if (currentChallenge == 3) {
+            setWarning(true);
+          }
+        } catch (error: any) {
+          if (error.code === 'ERR_BAD_REQUEST') {
+            setQuestion('You have already solved this challenge');
+            setSolved(true);
+          } else setQuestion('Failed to fetch question');
+        }
+      };
 
-        fetchQuestion();
+      fetchQuestion();
     }, []);
 
     
@@ -130,24 +140,60 @@ export default function CryptographyRoom() {
         );
     }
 
-    return (
-        <Page>
-            {safeOpen && <Safe />}
-            {modal !== 0  && <SafeModal a={modal} />}
-            <a href="/home" style={{color: "white", alignSelf: 'baseline', marginLeft: 25}}>← Back</a>
-            <div style={{display: "flex"}}>
-                <p onClick={() => {if(currentChallenge == 3) {setSafeOpen(true)}}} className={safeOpen ? 'interactable' : ''} style={{height: 10, fontWeight: 700, transform: 'rotate(-30deg)', position: "relative", top: 250, left: 240, cursor: 'pointer', fontSize: '0.5rem', zIndex: 10}}>Open the safe</p>
-                <img src={'../../assets/images/cryptographyroom.jpg'} height={600}>
-                {/* <object data={roomImage} type="image/svg+xml" height={600}> */}
-                </img>
-                <img src={'../../assets/images/Safe.svg'} style={{position: "relative", right: 450, top: 225}} height={150}></img>
-                <div 
-                    className="interactable" onClick={() => setModal(currentChallenge)}
-                    style={{position: "relative", top: 307, right: 480, width: 30, height: 25}}>
-                    <img  src={'../../assets/images/Knob.svg'} height={22}></img>
-                </div>
-            </div>
-
-        </Page>
-    );
+  return (
+    <Page>
+      {safeOpen && <Safe />}
+      {modal !== 0 && <SafeModal a={modal} />}
+      <a
+        href="/home"
+        style={{ color: 'white', alignSelf: 'baseline', marginLeft: 25 }}
+      >
+        ← Back
+      </a>
+      <div style={{ display: 'flex' }}>
+        <p
+          onClick={() => {
+            if (currentChallenge == 3) {
+              setSafeOpen(true);
+            }
+          }}
+          className={safeOpen ? 'interactable' : ''}
+          style={{
+            height: 10,
+            fontWeight: 700,
+            transform: 'rotate(-30deg)',
+            position: 'relative',
+            top: 250,
+            left: 240,
+            cursor: 'pointer',
+            fontSize: '0.5rem',
+            zIndex: 10,
+          }}
+        >
+          Open the safe
+        </p>
+        <img src={'../../assets/images/cryptographyroom.jpg'} height={600}>
+          {/* <object data={roomImage} type="image/svg+xml" height={600}> */}
+        </img>
+        <img
+          src={'../../assets/images/Safe.svg'}
+          style={{ position: 'relative', right: 450, top: 225 }}
+          height={150}
+        ></img>
+        <div
+          className="interactable"
+          onClick={() => setModal(currentChallenge)}
+          style={{
+            position: 'relative',
+            top: 307,
+            right: 480,
+            width: 30,
+            height: 25,
+          }}
+        >
+          <img src={'../../assets/images/Knob.svg'} height={22}></img>
+        </div>
+      </div>
+    </Page>
+  );
 }
