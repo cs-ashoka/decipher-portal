@@ -86,7 +86,6 @@ export default function TriviaRoom() {
       </a>
       {stage && !loading && (
         <>
-          <h3>Guess Who</h3>
           <img src={questions[stage - 1]} alt="" width={400} />
           <input
             type="text"
