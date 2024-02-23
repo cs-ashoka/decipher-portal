@@ -102,15 +102,15 @@ const HomePage = () => {
   //checking if entering room door
   function enteringDoorway(x:any, y:any) {
     if (collidingWithDebug(x,y)) {
-      {
+      if ( (y > (height/2 + height * 0.1290)) && (y < (height/2 + height * 0.2580)) ) {
         return navigateTo("3");
       }
     } else if (collidingWithCrypto(x, y)) {
-      {
+      if ((y > (height/2 - 80 - height * 0.3010)) && (y < (height/2 - 80 - height * 0.1720))) {
         return navigateTo("2");
       }
     } else if (collidingWithGeneral(x, y)) {
-      {
+      if ( (y > height/2 + height * 0.1720) && (y < height /2 + height * 0.301)) {
         return navigateTo("1");
       } 
     }
